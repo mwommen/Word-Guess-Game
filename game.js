@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   
+    
  
 
 var songNames = ["paris",  "closer", "roses", "hope", "young", "selfie", "somebody", "honest"]
@@ -7,13 +8,15 @@ var songNames = ["paris",  "closer", "roses", "hope", "young", "selfie", "somebo
 var randomWord = "";
 //This is user version
 var lettersOfWord = []//['_', '_', '_'] => '_ _ _'
-var wrongGuess = [];
-
+var wrongGuess = [];// empty array that will input number of wrong guesses, with a max of 10;
+// var updateDisplay 
 var wins = 0;
-var losses = 0;
-var guessesRemaining = 9;
+document.getElementById("totalWins").innerHTML = wins;
+var remainingGuesses = 10; 
+document.getElementById("remainingGuesses").innerHTML = remainingGuesses;
 var letters = genCharArray('a', 'z');
-//['r', 'o', 's', 'e', 's'] => 'roses'
+
+
 
 
 
@@ -25,10 +28,7 @@ var getRndomSong = function(array) {
     randomWord = getRndomSong(songNames);
     console.log('randomWord', randomWord);
     
-    // function game() {
-        //     randomWord = songNames[Math.floor](Math.random() * word.length)];
-
-
+//give underscores to the length of the random word. 
 var underScores = [];
 for (var i = 0; i < randomWord.length; i++){
     underScores.push('_');
@@ -39,8 +39,7 @@ currentWordEl.innerText = underScores.join(' ');
 
 
 
-//BIG NEXT STEP
-
+// NEXT STEP
 //We need to accept some user input
 //Stack Overflow: https://stackoverflow.com/questions/24597634/how-to-generate-an-array-of-alphabet-in-jquery
 function genCharArray(charA, charZ) {
@@ -54,21 +53,36 @@ function genCharArray(charA, charZ) {
 }
 
 
-//Listen to some event in teh dom that will be triggered when a key is pressed
+//Listen to some event in the dom that will be triggered when a key is pressed
 //keypress, keypressup, keypressdown
 document.onkeypress = function(event){
-    console.log('hi', event.key);
-
-    if(letters.includes(event.key.toLowerCase())){
-        console.log('We ahve valid info and we can continue forward with app');
-    }
-    else {
-        alert('Please press a lettter....');
-    }
+    console.log('You guessed', event.key);
+    var userGuess = event.key.toLowerCase();
 }
 
-// 
+    // this function makes sure if you press an uppercase letter it will still recognize the letter as lowercase. if any key other than a letter is pressed then alert will show.
+    var userGuess = [];
+    if(letters.includes(userGuess)){
+        for(var i = 0; i < randomWord.length; i++){
+            if(userGuess === randomWord[i]) {
+                // console.log(`user guess = ${randomWord[i]}`)
+                 console.log("user guess " + randomWord[i])
+                
+            }
+        }
+    }
+    
+    
+    // letters === randomWord[i] 
+    for (var j = 0; j < randomWord.length; j++) {
+        if (randomWord[j] === letters) {
+        answerArray[j] = userGuess;
+        remainingLetters--;
+    }
+
+}
 
 
 
-});
+
+ });
